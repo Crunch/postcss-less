@@ -1,0 +1,29 @@
+{
+  "name": "postcss-less",
+  "version": "0.0.0",
+  "description": "PostCSS plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "less",
+    "less-plugin"
+  ],
+  "author": "Matthew Dean <matthewdean.me@gmail.com>",
+  "license": "MIT",
+  "repository": "matthew-dean/postcss-less",
+  "bugs": {
+    "url": "https://github.com/matthew-dean/postcss-less/issues"
+  },
+  "homepage": "https://github.com/matthew-dean/postcss-less",
+  "dependencies": {
+    "postcss": "^5.0.10"
+  },
+  "devDependencies": {
+    "ava": "^0.4.2",
+    "eslint": "^1.9.0"
+  },
+  "scripts": {
+    "test": "ava && eslint *.js"
+  }
+}
