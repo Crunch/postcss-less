@@ -1,0 +1,22 @@
+<html>
+<head>
+	<script>
+	function run() {
+		var postcss = require('postcss');
+	    var less = require('../.');
+	    console.log('processing...');
+	    postcss([
+			less({})
+		]).process('a { b: c; }', { parser: less.parser }).then(function (result) {
+			console.log(result);
+		}, function (err) {
+			if(err)
+				console.log(err);
+		});
+	}
+	</script>
+</head>
+<body onload="run()">
+blank.
+</body>
+</html>
