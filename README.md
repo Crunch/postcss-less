@@ -2,9 +2,11 @@
 
 [PostCSS] plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow.
 
+WIP - DO NOT USE
+
 [PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/matthew-dean/postcss-less.svg
-[ci]:      https://travis-ci.org/matthew-dean/postcss-less
+[ci-img]:  https://travis-ci.org/Crunch/postcss-less.svg
+[ci]:      https://travis-ci.org/Crunch/postcss-less
 
 ```css
 .foo {
