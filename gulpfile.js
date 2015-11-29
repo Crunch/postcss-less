@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 
 gulp.task('test', function() {
-    return;
+    var mocha = require('gulp-mocha');
+    return gulp.src('test/*.js', { read: false }).pipe(mocha());
 });
 
 gulp.task('integration', function(done) {

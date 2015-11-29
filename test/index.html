@@ -7,7 +7,7 @@
 	    console.log('processing...');
 	    postcss([
 			less({})
-		]).process('a { b: c; }', { parser: less.parser }).then(function (result) {
+		]).process('/* \n try this     \n */ a[b="blah"], x.y {\n @b: /* test */ c !important; d: @b; }', { parser: less.parser }).then(function (result) {
 			console.log(result);
 		}, function (err) {
 			if(err)
