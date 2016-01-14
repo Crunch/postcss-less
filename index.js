@@ -33,17 +33,22 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
      	// are required for many class functions.
      	var returnObj;
 
+     	console.log(less);
+
      	function buildNodeObject(filename, index, chunk) {
      		var input = postCssInputs[filename],
 	            loc = less.utils.getLocation(index, input.css);
 	        
 	        return {
 	        	stringValue: chunk
-	        	, input: input
-	        	, start: { 
-		        	line: loc.line
-		        	, column: loc.column
-		        }
+	        	, source: {
+	        		// The Less parser only tracks starting indices, which should still work for sourcemaps.
+					start: { 
+			        	line: loc.line
+			        	, column: loc.column
+			        }
+	        		, input: input
+	        	}
 	        };
      	}
      	
@@ -64,7 +69,20 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
 	    	return returnObj;
 	    }
 	    var process = {
-	    	ruleset: function(ruleset) {
+	    	// PostCSS "at-rule"
+	    	directive: function(directive) {
+	    		var node = buildNodeObject(directive.currentFileInfo.filename, directive.index);
+	    		// Remove "@" for PostCSS
+	    		var val = getObject(directive.value, true);
+
+	    		node.name = directive.name.replace('@','');
+	    		node.params = [ val.stringValue ];
+	    		console.log(node);
+
+	    		return postcss.atRule(node);
+	    	}
+	    	// PostCSS "rule"
+	    	, ruleset: function(ruleset) {
 	    		var i = 0, selectors = [];
 	    		var tmpObj, node;
 
@@ -82,6 +100,7 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
     			processRules(rule, ruleset.rules);
     			return rule;
 	    	}
+	    	// PostCSS "decl"
 	    	, rule: function(rule) {
 	    		var node = buildNodeObject(rule.currentFileInfo.filename, rule.index);
 	    		var evalValue = getObject(rule.value, true);
@@ -102,18 +121,20 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
 
     		if(rulesArray && rulesArray.length > 0) {
 	    		rulesArray.forEach(function(val) {
-	    			switch(val.type) {
-	    				// a.k.a. PostCSS "rule"
-	    				case "Ruleset":
-	    					container.append(process.ruleset(val));
-	    					break;
-	    				// a.k.a. PostCSS "decl"
-	    				case "Rule":
-	    					container.append(process.rule(val));
-	    					break;
-	    				case "Comment":
-	    					container.append(process.comment(val));
-	    					break;
+	    			// a.k.a. PostCSS "rule"
+	    			if(val instanceof less.tree.Ruleset) {
+	    				container.append(process.ruleset(val));
+	    			}
+	    			// a.k.a. PostCSS "decl"
+	    			else if(val instanceof less.tree.Rule) {
+	    				container.append(process.rule(val));
+	    			}
+	    			else if(val instanceof less.tree.Comment) {
+	    				container.append(process.comment(val));
+	    			}
+	    			else if(val instanceof less.tree.Directive) {
+	    				// a.k.a. PostCSS "atrule"
+	    				container.append(process.directive(val));
 	    			}
 	    		});
 	    	}
@@ -128,10 +149,11 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
 					reject();
 				}
 				// Convert Less AST to PostCSS AST
-				//console.log(evaldRoot, imports);
+				console.log(evaldRoot, imports);
 
 				convertImports(imports.contents);
 				processRules(css, evaldRoot.rules);
+				console.log(css);
 				resolve();
 			});
         });

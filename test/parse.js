@@ -7,14 +7,20 @@ describe('LESS Parser', function() {
 
     cases.each( function(name, css, json) {
         it('parses ' + name, function(done) {
+
         	postcss([
 				less({})
 			]).process(css, { parser: less.parser, from: name }).then(function (result) {
-				var parsed = cases.jsonify(result);
-				chai.expect(parsed).to.eql(json);
-				done();
+				try {
+					var parsed = cases.jsonify(result);
+					chai.expect(parsed).to.eql(json);
+					done();
+				}
+				catch(err) {
+					done(err);
+				}
 			}, done);
-            
+
         });
     });
 

@@ -7,7 +7,11 @@
 	    console.log('processing...');
 	    postcss([
 			less({})
-		]).process('/* \n try this     \n */ a[b="blah"], x.y {\n @b: /* test */ c !important; d: @b; }', { parser: less.parser }).then(function (result) {
+		]).process('@charset "utf-8";\n' +
+		' /* \n try this     \n */ ' + 
+		'@media print, screen and (max-width: 640px) {\n foo: bar;\n }' +
+		'a[b="blah"], x.y {' + 
+		'\n @b: /* test */ c !important; d: @b; }', { parser: less.parser }).then(function (result) {
 			console.log(result);
 		}, function (err) {
 			if(err)
