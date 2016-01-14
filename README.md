@@ -45,7 +45,7 @@ Add [Gulp PostCSS] to your build tool:
 npm install gulp-postcss --save-dev
 ```
 
-Enable [PreCSS] within your Gulpfile:
+Enable [postcss-less] within your Gulpfile:
 
 ```js
 var postcss = require('gulp-postcss');
@@ -66,10 +66,10 @@ gulp.task('less', function () {
 Add [Grunt PostCSS] to your build tool:
 
 ```sh
-npm install precss --save-dev
+npm install postcss-less --save-dev
 ```
 
-Enable [PreCSS] within your Gruntfile:
+Enable [postcss-less] within your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-postcss');
