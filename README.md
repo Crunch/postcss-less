@@ -2,7 +2,7 @@
 
 [PostCSS] plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow.
 
-WIP - DO NOT USE
+WIP - If anyone wants to help me get this working (especially tests, which haven't worked yet because of the async flow), that would be great. Pull requests welcome.
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/matthew-dean/postcss-less.svg
