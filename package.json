@@ -16,14 +16,14 @@
     "url": "https://github.com/matthew-dean/postcss-less/issues"
   },
   "homepage": "https://github.com/matthew-dean/postcss-less",
-  "dependencies": {
-    "less": "^2.5.3",
-    "postcss": "^5.0.10"
-  },
+  "dependencies": {},
   "devDependencies": {
     "ava": "^0.4.2",
     "gulp": "^3.9.0",
-    "eslint": "^1.9.0"
+    "eslint": "^1.9.0",
+    "bluebird": "^3.3.5",
+    "less": "^2.5.3",
+    "postcss": "^5.0.10"
   },
   "scripts": {
     "test": "ava && eslint *.js"

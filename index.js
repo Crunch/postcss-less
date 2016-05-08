@@ -10,11 +10,12 @@ var cacheInput;
 var plugin = postcss.plugin('postcss-less', function (opts) {
     opts = opts || {};
     
-    // Convert PostCSS options to Less options
-
     return function (css, result) {
 
-    	//console.log(css);
+    	// Add PostCSS options to Less
+    	if(result.opts.from) {
+    		opts.filename = result.opts.from;
+    	}
 
     	var postCssInputs = {};
 
@@ -23,6 +24,7 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
     	function convertImports(imports) {
 	    	for (var file in imports) {
 			    if (imports.hasOwnProperty(file)) {
+			    	console.log(file);
 			        postCssInputs[file] = new Input(imports[file], file !== "input" ? { from: file } : undefined);
 			    }
 			}
@@ -33,7 +35,7 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
      	// are required for many class functions.
      	var returnObj;
 
-     	console.log(less);
+     	//console.log(less);
 
      	function buildNodeObject(filename, index, chunk) {
      		var input = postCssInputs[filename],
@@ -77,7 +79,7 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
 
 	    		node.name = directive.name.replace('@','');
 	    		node.params = [ val.stringValue ];
-	    		console.log(node);
+	    		//console.log(node);
 
 	    		return postcss.atRule(node);
 	    	}
@@ -146,14 +148,12 @@ var plugin = postcss.plugin('postcss-less', function (opts) {
             render(cacheInput, opts, function(err, evaldRoot, imports) {
 				if(err) {
 					// Build PostCSS error
-					reject();
+					reject(err);
 				}
 				// Convert Less AST to PostCSS AST
-				console.log(evaldRoot, imports);
-
 				convertImports(imports.contents);
 				processRules(css, evaldRoot.rules);
-				console.log(css);
+				//console.log(css);
 				resolve();
 			});
         });
