@@ -16,7 +16,7 @@ Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "
 * Less.js does not save "raws" when parsing. It also only preserves the start line / column of your source, which is still fine for Source Maps.
 
 ## How is this different from a Less plugin?
-A plugin like [less-plugin-autoprefix] parses your CSS twice. First, [Less.js] parses your `.less`, evaluates it, and outputs CSS as a string. Then, PostCSS parses the string to make an AST. The [postcss-less-parser] plugin directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD.
+A plugin like [less-plugin-autoprefix] parses your CSS twice. First, [Less.js] parses your `.less`, evaluates it, and outputs CSS as a string. Then, PostCSS parses the string to make an AST. The [postcss-less-parser] plugin directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD. But I did it for you. Because I love you.
 
 I'm not sure if that would have a major performance difference or not. Someone else can do the benchmarks, my brain is full.
 
