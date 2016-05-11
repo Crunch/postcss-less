@@ -39,7 +39,7 @@ var less = require('postcss-less-parser');
 less({ /* Less.js options */ }).process(YOUR_CSS, { parser: less.parser });
 ```
 
-Load [postcss-less] as a PostCSS plugin:
+Load [postcss-less-parser] as a PostCSS plugin:
 
 ```js
 var less = require('postcss-less-parser');
