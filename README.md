@@ -6,7 +6,9 @@
 
 Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "emulate" a pre-processor, use a pre-processor!
 
-## Some caveats
+**THAT'S RIGHT.** This plugin doesn't give you "Less-like" functionality, or "Less-like" parsing. It gives you the full awesomeness of Less, with the flexibility of PostCSS. Basically, you can throw your "pre-processor-y" plugins away now.
+
+## Having said that...
 
 * Because this uses the [Less.js] parser and not the default PostCSS processor, some parsing will be different. PostCSS accepts "broken" CSS, whereas Less doubles as a de facto CSS linter, and will return errors if your Less / CSS is poorly structured.
 * PostCSS will also sometimes "fix" CSS that uses property hacks, which Less preserves as the property name, or will remove comments from within values, which are also kept in the value by Less.
