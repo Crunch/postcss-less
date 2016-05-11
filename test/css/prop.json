@@ -1,0 +1,76 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "input": {
+              "file": "prop.css"
+            }
+          },
+          "prop": "*color",
+          "value": "black"
+        },
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "input": {
+              "file": "prop.css"
+            }
+          },
+          "prop": "_background",
+          "value": "white"
+        },
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 5
+            },
+            "input": {
+              "file": "prop.css"
+            }
+          },
+          "prop": "font-size",
+          "value": "big"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "prop.css"
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "prop.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

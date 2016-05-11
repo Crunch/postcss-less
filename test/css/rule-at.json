@@ -1,0 +1,78 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "input": {
+              "file": "rule-at.css"
+            }
+          },
+          "prop": "margin",
+          "value": "0 10px"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "rule-at.css"
+        }
+      },
+      "selector": "a"
+    },
+    {
+      "raws": {},
+      "type": "atrule",
+      "name": "mixin",
+      "source": {
+        "start": {
+          "line": 4,
+          "column": 5
+        },
+        "input": {
+          "file": "rule-at.css"
+        }
+      },
+      "params": "mobile",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 5,
+              "column": 9
+            },
+            "input": {
+              "file": "rule-at.css"
+            }
+          },
+          "prop": "height",
+          "value": "100px"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "rule-at.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

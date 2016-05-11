@@ -1,5 +1,6 @@
 var postcss = require('postcss')
 	, Input = require('postcss/lib/input')
+	, CssSyntaxError = require('postcss/lib/css-syntax-error')
 	, less = require('less');
 
 
@@ -89,14 +90,23 @@ function LessPlugin() {
 		    var process = {
 		    	// PostCSS "at-rule"
 		    	directive: function(directive) {
-		    		var val, node, nodeTmp = buildNodeObject(directive.currentFileInfo.filename, directive.index);
 
-		    		if(directive.features) {
-		    			val = getObject(directive.features, true);
-		    		}
-		    		else {
-						val = getObject(directive.value, true);
-		    		}
+		    		var filename = directive.path 
+		    			? directive.path.currentFileInfo.filename
+		    			: directive.currentFileInfo.filename;
+		    		var val, node, nodeTmp = buildNodeObject(filename, directive.index);
+
+		    		if(!directive.path) {
+			    		if(directive.features) {
+			    			val = getObject(directive.features, true).stringValue;
+			    		}
+			    		else {
+							val = getObject(directive.value, true).stringValue;
+			    		}
+			    	}
+			    	else {
+			    		val = directive.path.quote + directive.path.value + directive.path.quote;
+			    	}
 
 		    		node = {
 		    			type: ""
@@ -105,13 +115,16 @@ function LessPlugin() {
 		    		if(directive.type === 'Media') {
 		    			node.name = 'media';
 		    		}
+		    		else if(directive.type === 'Import') {
+		    			node.name = 'import';
+		    		}
 		    		else {
 		    			// Remove "@" for PostCSS
 		    			node.name = directive.name.replace('@','');
 		    		}
 
 		    		node.source = nodeTmp.source;
-		    		node.params = val.stringValue;
+		    		node.params = val;
 		    		
 		    		var atrule = postcss.atRule(node);
 
@@ -128,14 +141,13 @@ function LessPlugin() {
 
 		    		// Less rulesets aren't completely flat at this stage.
 		    		// They need one more good flattening. From lib/less/tree/ruleset.js
-		    		console.log(ruleset);
+
 		    		if(paths) {
 			    		for (i = 0; i < paths.length; i++) {
 				            path = paths[i];
 				            if (!(pathSubCnt = path.length)) { continue; }
 
 				            if(i === 0) {
-				            	console.log(ruleset.selectors[0].elements[0].currentFileInfo.filename);
 		    					tmpObj = buildNodeObject(ruleset.selectors[0].elements[0].currentFileInfo.filename, ruleset.selectors[0].elements[0].index);
 		    					node = {
 		    						type: "rule"
@@ -153,7 +165,7 @@ function LessPlugin() {
 				            for (j = 1; j < pathSubCnt; j++) {
 				            	getObject(path[j]);
 				            }
-				            selectors.push(returnObj.stringValue);
+				            selectors.push(returnObj.stringValue.trim());
 				        }
 				    }
 				    else {
@@ -167,13 +179,11 @@ function LessPlugin() {
 		    						, nodes: []
 		    						, source: tmpObj.source
 		    					};
-		    					console.log(node);
-		    					
 		    				}
 		    				val = getObject(selector, true);
 
 		    				if(val.stringValue)
-		    					selectors.push(val.stringValue);
+		    					selectors.push(val.stringValue.trim());
 
 		    				i++;
 				    	}
@@ -196,9 +206,19 @@ function LessPlugin() {
 		    			, prop: rule.name
 		    			, value: evalValue.stringValue
 		    		};
-
-		    		if(rule.important.indexOf("!i") > -1) {
+		    		
+		    		var testImportant;
+		    		if(rule.important.indexOf("!") > -1) {
 		    			node.important = true;
+		    		}
+		    		// Currently, Less doesn't separate the important flag if it's not assigned to a variable
+		    		// This may change but if so, this should still work.
+		    		else {
+		    			testImportant = /([^!]*)(! *important)/.exec(node.value);
+		    			if(testImportant && testImportant[2] !== '') {
+		    				node.important = true;
+		    				node.value = testImportant[1].trim();
+		    			}
 		    		}
 
 		    		return postcss.decl(node);
@@ -245,6 +265,9 @@ function LessPlugin() {
 		    			else if(val instanceof less.tree.Directive) {
 		    				container.append(process.directive(val));
 		    			}
+		    			else if(val instanceof less.tree.Import) {
+		    				container.append(process.directive(val));
+		    			}
 		    		});
 		    	}
 	    	}
@@ -258,7 +281,14 @@ function LessPlugin() {
 	            render(cacheInput.toString(), opts, function(err, tree, evaldRoot, imports) {
 					if(err) {
 						// Build PostCSS error
-						return reject(err);
+						reject(new CssSyntaxError(
+							err.message
+							, err.line
+							, err.column
+							, err.extract
+							, err.filename
+							, 'postcss-less-plugin'					
+						));
 					}
 					try {
 						// Not sure if this is the correct context or not?
@@ -268,7 +298,6 @@ function LessPlugin() {
 						convertImports(imports.contents);
 
 						processRules(css, evaldRoot.rules);
-						//console.log(css);
 						resolve();
 					}
 					catch(err) {

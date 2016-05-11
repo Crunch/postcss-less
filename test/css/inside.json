@@ -1,25 +1,13 @@
 {
-  "raws": {
-    "semicolon": false,
-    "after": ""
-  },
+  "raws": {},
   "type": "root",
   "nodes": [
     {
-      "raws": {
-        "before": "",
-        "between": " ",
-        "semicolon": false,
-        "after": ""
-      },
+      "raws": {},
       "type": "rule",
       "nodes": [
         {
-          "raws": {
-            "before": " ",
-            "between": " ",
-            "afterName": " "
-          },
+          "raws": {},
           "type": "atrule",
           "name": "import",
           "source": {
@@ -41,10 +29,6 @@
         },
         "input": {
           "file": "inside.css"
-        },
-        "end": {
-          "line": 1,
-          "column": 21
         }
       },
       "selector": "a"

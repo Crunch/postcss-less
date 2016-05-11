@@ -1,0 +1,11 @@
+a {
+    width: 1px!important;
+    color: black  !important ;
+}
+
+p {
+	@val: red !important;
+    prop: important;
+    color: @val;
+    margin: 10px      !      important;
+}

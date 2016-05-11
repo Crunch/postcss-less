@@ -1,24 +1,13 @@
 {
-  "raws": {
-    "semicolon": false,
-    "after": ""
-  },
+  "raws": {},
   "type": "root",
   "nodes": [
     {
-      "raws": {
-        "before": "",
-        "between": " ",
-        "semicolon": true,
-        "after": "\n"
-      },
+      "raws": {},
       "type": "rule",
       "nodes": [
         {
-          "raws": {
-            "before": "\n    ",
-            "between": ": "
-          },
+          "raws": {},
           "type": "decl",
           "source": {
             "start": {
@@ -27,20 +16,13 @@
             },
             "input": {
               "file": "function.css"
-            },
-            "end": {
-              "line": 2,
-              "column": 106
             }
           },
           "prop": "background-image",
           "value": "url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)"
         },
         {
-          "raws": {
-            "before": "\n    ",
-            "between": ": "
-          },
+          "raws": {},
           "type": "decl",
           "source": {
             "start": {
@@ -49,20 +31,13 @@
             },
             "input": {
               "file": "function.css"
-            },
-            "end": {
-              "line": 3,
-              "column": 45
             }
           },
           "prop": "background-image",
-          "value": "url(\"./image (1).jpg\")"
+          "value": "url(\"image (1).jpg\")"
         },
         {
-          "raws": {
-            "before": "\n    ",
-            "between": ": "
-          },
+          "raws": {},
           "type": "decl",
           "source": {
             "start": {
@@ -71,14 +46,10 @@
             },
             "input": {
               "file": "function.css"
-            },
-            "end": {
-              "line": 4,
-              "column": 47
             }
           },
           "prop": "background-image",
-          "value": "url( './image (1).jpg' )"
+          "value": "url('image (1).jpg')"
         }
       ],
       "source": {
@@ -88,10 +59,6 @@
         },
         "input": {
           "file": "function.css"
-        },
-        "end": {
-          "line": 5,
-          "column": 1
         }
       },
       "selector": "a"

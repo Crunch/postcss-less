@@ -1,6 +1,6 @@
 var chai = require('chai');
 var tests = require('postcss-parser-tests');
-var cases = require('./each');
+var each = require('./each');
 var jsonify = require('./jsonify');
 var postcss = require('postcss');
 var less = require('../.');
@@ -10,37 +10,41 @@ var path = require('path');
 var promises = [];
 var i=0;
 
-cases( function(name, css, json) {
-	if(i<10) {
-		promises.push(new Promise(function(finish) {
-			it('parses ' + name, function(done) {
-	        	postcss([
-					less({ strictMath: true })
-				]).process(css, {
-						parser: less.parser
-						, from: name
-						, map: { inline: false } })
-					.then(function (result) {
-						try {
-							var parsed = jsonify(result.root);
-							//console.log(result.css);
-							chai.expect(parsed).to.eql(json);
-							done();
-						}
-						catch(err) {
-							done(err);
-						}
-					}, done);
-	        });
-	        finish();
-		}));
-	}
+each('css')( function(name, css, json) {
+	promises.push(new Promise(function(finish) {
+		it('parses ' + name, function(done) {
+        	postcss([
+				less({ strictMath: true })
+			]).process(css, {
+					parser: less.parser
+					, from: name
+					, map: { inline: false } })
+				.then(function (result) {
+					try {
+						var parsed = jsonify(result.root);
+						chai.expect(parsed).to.eql(json);
+						done();
+					}
+					catch(err) {
+						done(err);
+					}
+				}, function(err) {
+					done(new Error(err.message, err.file, err.line));
+				});
+        });
+        finish();
+	}));
 	i++;
 });
 
 
 describe('LESS Parser', function() {
-	//Promise.all(promises);
+	describe('Process CSS', function() {
+		Promise.all(promises);
+	});
+	describe('Process LESS', function() {
+		//Promise.all(promises);
+	});
 });
 
 // Through testing, I discovered that Source Maps won't be equal

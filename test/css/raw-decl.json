@@ -1,28 +1,13 @@
 {
-  "raws": {
-    "semicolon": false,
-    "after": ""
-  },
+  "raws": {},
   "type": "root",
   "nodes": [
     {
-      "raws": {
-        "before": "",
-        "between": " ",
-        "semicolon": true,
-        "after": " "
-      },
+      "raws": {},
       "type": "rule",
       "nodes": [
         {
-          "raws": {
-            "before": " ",
-            "between": ": ",
-            "value": {
-              "value": "a b",
-              "raw": "a/* ; */ b  "
-            }
-          },
+          "raws": {},
           "type": "decl",
           "source": {
             "start": {
@@ -31,14 +16,10 @@
             },
             "input": {
               "file": "raw-decl.css"
-            },
-            "end": {
-              "line": 1,
-              "column": 24
             }
           },
           "prop": "color",
-          "value": "a b"
+          "value": "a /* ; */ b"
         }
       ],
       "source": {
@@ -48,10 +29,6 @@
         },
         "input": {
           "file": "raw-decl.css"
-        },
-        "end": {
-          "line": 1,
-          "column": 26
         }
       },
       "selector": "a"

@@ -1,24 +1,13 @@
 {
-  "raws": {
-    "semicolon": false,
-    "after": ""
-  },
+  "raws": {},
   "type": "root",
   "nodes": [
     {
-      "raws": {
-        "before": "",
-        "between": "",
-        "semicolon": false,
-        "after": ""
-      },
+      "raws": {},
       "type": "rule",
       "nodes": [
         {
-          "raws": {
-            "before": "",
-            "between": ":"
-          },
+          "raws": {},
           "type": "decl",
           "source": {
             "start": {
@@ -27,10 +16,6 @@
             },
             "input": {
               "file": "rule-no-semicolon.css"
-            },
-            "end": {
-              "line": 1,
-              "column": 13
             }
           },
           "prop": "color",
@@ -44,10 +29,6 @@
         },
         "input": {
           "file": "rule-no-semicolon.css"
-        },
-        "end": {
-          "line": 1,
-          "column": 14
         }
       },
       "selector": "a"

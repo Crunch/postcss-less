@@ -1,5 +1,5 @@
 {
-  "name": "postcss-less",
+  "name": "postcss-less-parser",
   "version": "0.0.1",
   "description": "PostCSS plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow",
   "keywords": [
@@ -11,11 +11,11 @@
   ],
   "author": "Matthew Dean <matthewdean.me@gmail.com>",
   "license": "MIT",
-  "repository": "matthew-dean/postcss-less",
+  "repository": "matthew-dean/postcss-less-parser",
   "bugs": {
-    "url": "https://github.com/matthew-dean/postcss-less/issues"
+    "url": "https://github.com/matthew-dean/postcss-less-parser/issues"
   },
-  "homepage": "https://github.com/matthew-dean/postcss-less",
+  "homepage": "https://github.com/matthew-dean/postcss-less-parser",
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.4.2",
