@@ -1,6 +1,16 @@
-# Less for PostCSS [![Build Status][ci-img]][ci]
+# Finally, Less comes to PostCSS
 
-[PostCSS] plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow.
+[![Build Status][ci-img]][ci]
+
+What you've been waiting for: a [PostCSS] custom parser plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow! It integrates the entire Less engine, evaluates your `.less`, and exports a PostCSS AST that you can use to attach multiple subsequent PostCSS plugins.
+
+Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "emulate" a pre-processor, use a pre-processor!
+
+## Some caveats
+
+Because this uses the Less.js parser and not the default PostCSS processor, some parsing will be different. PostCSS accepts "broken" CSS, whereas Less doubles as a de facto CSS linter, and will return errors if your Less / CSS is poorly structured.
+
+PostCSS will also sometimes "fix" CSS that uses property hacks, which Less preserves as the property name, or will remove comments from within values, which are also kept in the value by Less.
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/matthew-dean/postcss-less.svg
@@ -28,7 +38,7 @@ less({ /* Less.js options */ }).process(YOUR_CSS, { parser: less.parser });
 Load [postcss-less] as a PostCSS plugin:
 
 ```js
-var less = require('postcss-less');
+var less = require('postcss-less-parser');
 postcss([
     less({ /* Less.js options */ })
 ]).process(YOUR_CSS, { parser: less.parser }).then(function (result) {
