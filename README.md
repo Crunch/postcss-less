@@ -13,8 +13,8 @@ Because this uses the Less.js parser and not the default PostCSS processor, some
 PostCSS will also sometimes "fix" CSS that uses property hacks, which Less preserves as the property name, or will remove comments from within values, which are also kept in the value by Less.
 
 [PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/matthew-dean/postcss-less.svg
-[ci]:      https://travis-ci.org/matthew-dean/postcss-less
+[ci-img]:  https://travis-ci.org/Crunch/postcss-less.svg
+[ci]:      https://travis-ci.org/Crunch/postcss-less
 [postcss-less-parser]: https://github.com/Crunch/postcss-less-parser
 
 
