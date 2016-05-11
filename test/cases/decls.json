@@ -1,0 +1,61 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "input": {
+              "file": "decls.css"
+            }
+          },
+          "prop": "color",
+          "value": "black"
+        },
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "input": {
+              "file": "decls.css"
+            }
+          },
+          "prop": "background",
+          "value": "white"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "decls.css"
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "decls.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

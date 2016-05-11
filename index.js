@@ -5,163 +5,285 @@ var postcss = require('postcss')
 
 var render = require("./lib/render")(less.ParseTree, less.transformTree);
 
-var cacheInput;
+function LessPlugin() {
+	var cacheInput;
 
-var plugin = postcss.plugin('postcss-less', function (opts) {
-    opts = opts || {};
-    
-    return function (css, result) {
+	var plugin = postcss.plugin('postcss-less', function (opts) {
+	    opts = opts || {};
+	    
+	    return function (css, result) {
 
-    	// Add PostCSS options to Less
-    	if(result.opts.from) {
-    		opts.filename = result.opts.from;
-    	}
-
-    	var postCssInputs = {};
-
-    	// Less's importManager is like PostCSS's Input class.
-    	// We need to convert our inputs to reference them later.
-    	function convertImports(imports) {
-	    	for (var file in imports) {
-			    if (imports.hasOwnProperty(file)) {
-			    	console.log(file);
-			        postCssInputs[file] = new Input(imports[file], file !== "input" ? { from: file } : undefined);
-			    }
-			}
-		}
-
-     	// Most of Less's nodes require an object to be passed with this structure.
-     	// It makes it hard to just stringify anything, because of Less's "context" and "output" paramaters that
-     	// are required for many class functions.
-     	var returnObj;
-
-     	//console.log(less);
-
-     	function buildNodeObject(filename, index, chunk) {
-     		var input = postCssInputs[filename],
-	            loc = less.utils.getLocation(index, input.css);
-	        
-	        return {
-	        	stringValue: chunk
-	        	, source: {
-	        		// The Less parser only tracks starting indices, which should still work for sourcemaps.
-					start: { 
-			        	line: loc.line
-			        	, column: loc.column
-			        }
-	        		, input: input
-	        	}
+	    	// Add PostCSS options to Less options
+	    	// TODO - outfile for source map
+	    	css.source = {};
+	    	if(opts.filename) {
+	    		css.source.input = {
+	    			file: opts.filename
+	    		};
+	    	}
+	    	else if(result.opts.from) {
+	    		css.source.input = {
+	    			file: result.opts.from
+	    		};
+	    		opts.filename = result.opts.from;
+	    	}
+	    	css.source.start = { 
+	        	line: 1
+	        	, column: 1
 	        };
-     	}
-     	
-     	var output = { 
-     		add: function(chunk, fileInfo, index) {
-     			if(chunk === "" || chunk === " ") return;
 
-     			if(returnObj === "" && fileInfo) {
-     				return returnObj = buildNodeObject(fileInfo.filename, index, chunk);
-		        }
-	        	returnObj.stringValue += chunk;
-	        }
-	    };
-	    function getObject(lessNode, justString) {
-	    	// Initialize the string
-	    	returnObj = justString ? { stringValue: "" } : "";
-	    	lessNode.genCSS(null, output);
-	    	return returnObj;
-	    }
-	    var process = {
-	    	// PostCSS "at-rule"
-	    	directive: function(directive) {
-	    		var node = buildNodeObject(directive.currentFileInfo.filename, directive.index);
-	    		// Remove "@" for PostCSS
-	    		var val = getObject(directive.value, true);
+	    	// Most of Less's nodes require an object to be passed with this structure.
+	     	// It makes it hard to just stringify anything, because of Less's "context" and "output" paramaters that
+	     	// are required for many class functions.
+	    	var returnObj, context, postCssInputs = {};
 
-	    		node.name = directive.name.replace('@','');
-	    		node.params = [ val.stringValue ];
-	    		//console.log(node);
-
-	    		return postcss.atRule(node);
-	    	}
-	    	// PostCSS "rule"
-	    	, ruleset: function(ruleset) {
-	    		var i = 0, selectors = [];
-	    		var tmpObj, node;
-
-	    		ruleset.selectors.forEach(function(selector) {
-    				tmpObj = getObject(selector);
-    				if(i === 0) {
-    					node = tmpObj;
-    				}
-    				selectors.push(tmpObj.stringValue);
-    				i++;
-    			});
-    			node.selectors = selectors;
-
-    			var rule = postcss.rule(node);
-    			processRules(rule, ruleset.rules);
-    			return rule;
-	    	}
-	    	// PostCSS "decl"
-	    	, rule: function(rule) {
-	    		var node = buildNodeObject(rule.currentFileInfo.filename, rule.index);
-	    		var evalValue = getObject(rule.value, true);
-	    		node.prop = rule.name;
-	    		node.value = evalValue.stringValue;
-	    		if(rule.important.indexOf("!i") > -1) {
-	    			node.important = true;
-	    		}
-
-	    		return postcss.decl(node);
-	    	}
-	    	, comment: function(comment) {
-	    		// PostCSS requires comments to come without comment marks
-	    		return postcss.comment({ text: comment.value.replace(/^\/\*\s*/, '').replace(/\s*\*\/$/, '') });
-	    	}
-	    };
-    	function processRules(container, rulesArray) {
-
-    		if(rulesArray && rulesArray.length > 0) {
-	    		rulesArray.forEach(function(val) {
-	    			// a.k.a. PostCSS "rule"
-	    			if(val instanceof less.tree.Ruleset) {
-	    				container.append(process.ruleset(val));
-	    			}
-	    			// a.k.a. PostCSS "decl"
-	    			else if(val instanceof less.tree.Rule) {
-	    				container.append(process.rule(val));
-	    			}
-	    			else if(val instanceof less.tree.Comment) {
-	    				container.append(process.comment(val));
-	    			}
-	    			else if(val instanceof less.tree.Directive) {
-	    				// a.k.a. PostCSS "atrule"
-	    				container.append(process.directive(val));
-	    			}
-	    		});
-	    	}
-    	}
-
-        return new Promise(function (resolve, reject) {
-
-
-            render(cacheInput, opts, function(err, evaldRoot, imports) {
-				if(err) {
-					// Build PostCSS error
-					reject(err);
+	    	// Less's importManager is like PostCSS's Input class.
+	    	// We need to convert our inputs to reference them later.
+	    	function convertImports(imports) {
+		    	for (var file in imports) {
+				    if (imports.hasOwnProperty(file)) {
+				        postCssInputs[file] = new Input(imports[file], file !== "input" ? { from: file } : undefined);
+				    }
 				}
-				// Convert Less AST to PostCSS AST
-				convertImports(imports.contents);
-				processRules(css, evaldRoot.rules);
-				//console.log(css);
-				resolve();
-			});
-        });
-    };
-});
-plugin.parser = function(input) {
-	cacheInput = input;
-    return new postcss.root();
-};
+			}
 
-module.exports = plugin;
+	     	function buildNodeObject(filename, index, chunk) {
+	     		var input = postCssInputs[filename],
+		            loc = less.utils.getLocation(index, input.css);
+
+		        return {
+		        	stringValue: chunk
+		        	, source: {
+		        		// The Less parser only tracks starting indices, which should still work for sourcemaps.
+						start: { 
+				        	line: loc.line + 1
+				        	, column: loc.column + 1
+				        }
+		        		, input: input
+		        	}
+		        };
+	     	}
+	     	
+	     	var output = { 
+	     		add: function(chunk, fileInfo, index) {
+	     			if(chunk === "") return;
+
+	     			if(returnObj === "" && fileInfo && index) {
+	     				return returnObj = buildNodeObject(fileInfo.filename, index, chunk);
+			        }
+		        	returnObj.stringValue += chunk;
+		        }
+		    };
+		    function getObject(lessNode, init) {
+		    	// Initialize the string
+		    	if(init) 
+		    		returnObj = { stringValue: "" };
+		    	try {
+		    		if(lessNode.genCSS)
+		    			lessNode.genCSS(context, output);
+		    	}
+		    	catch(ex) {}
+
+		    	return returnObj;
+		    }
+		    var process = {
+		    	// PostCSS "at-rule"
+		    	directive: function(directive) {
+		    		var val, node, nodeTmp = buildNodeObject(directive.currentFileInfo.filename, directive.index);
+
+		    		if(directive.features) {
+		    			val = getObject(directive.features, true);
+		    		}
+		    		else {
+						val = getObject(directive.value, true);
+		    		}
+
+		    		node = {
+		    			type: ""
+		    		};
+
+		    		if(directive.type === 'Media') {
+		    			node.name = 'media';
+		    		}
+		    		else {
+		    			// Remove "@" for PostCSS
+		    			node.name = directive.name.replace('@','');
+		    		}
+
+		    		node.source = nodeTmp.source;
+		    		node.params = val.stringValue;
+		    		
+		    		var atrule = postcss.atRule(node);
+
+		    		if(directive.rules) {
+		    			atrule.nodes = [];
+		    			processRules(atrule, directive.rules);
+		    		}
+		    		return atrule;
+		    	}
+		    	// PostCSS "rule"
+		    	, ruleset: function(ruleset) {
+		    		var i = 0, selectors = [];
+		    		var val, tmpObj, node, path, pathSubCnt, paths = ruleset.paths;
+
+		    		// Less rulesets aren't completely flat at this stage.
+		    		// They need one more good flattening. From lib/less/tree/ruleset.js
+		    		console.log(ruleset);
+		    		if(paths) {
+			    		for (i = 0; i < paths.length; i++) {
+				            path = paths[i];
+				            if (!(pathSubCnt = path.length)) { continue; }
+
+				            if(i === 0) {
+				            	console.log(ruleset.selectors[0].elements[0].currentFileInfo.filename);
+		    					tmpObj = buildNodeObject(ruleset.selectors[0].elements[0].currentFileInfo.filename, ruleset.selectors[0].elements[0].index);
+		    					node = {
+		    						type: "rule"
+		    						, nodes: []
+		    						, source: tmpObj.source
+		    					};
+		    					context.firstSelector = true;
+		    					getObject(path[0], true);
+		    					context.firstSelector = false;
+		    				}
+		    				else {
+		    					getObject(path[0], true);
+		    				}
+
+				            for (j = 1; j < pathSubCnt; j++) {
+				            	getObject(path[j]);
+				            }
+				            selectors.push(returnObj.stringValue);
+				        }
+				    }
+				    else {
+				    	var selector;
+				    	for (i = 0; i < ruleset.selectors.length; i++) {
+				    		selector = ruleset.selectors[i];
+		    				if(i === 0) {
+		    					tmpObj = buildNodeObject(selector.elements[0].currentFileInfo.filename, selector.elements[0].index);
+		    					node = {
+		    						type: "rule"
+		    						, nodes: []
+		    						, source: tmpObj.source
+		    					};
+		    					console.log(node);
+		    					
+		    				}
+		    				val = getObject(selector, true);
+
+		    				if(val.stringValue)
+		    					selectors.push(val.stringValue);
+
+		    				i++;
+				    	}
+			    	}
+
+	    			node.selectors = selectors;
+
+	    			var rule = postcss.rule(node);
+	    			processRules(rule, ruleset.rules);
+	    			return rule;
+		    	}
+		    	// PostCSS "decl"
+		    	, rule: function(rule) {
+		    		var node, tmpObj = buildNodeObject(rule.currentFileInfo.filename, rule.index);
+		    		var evalValue = getObject(rule.value, true);
+
+		    		node = {
+		    			type: "decl"
+		    			, source: tmpObj.source
+		    			, prop: rule.name
+		    			, value: evalValue.stringValue
+		    		};
+
+		    		if(rule.important.indexOf("!i") > -1) {
+		    			node.important = true;
+		    		}
+
+		    		return postcss.decl(node);
+		    	}
+		    	, comment: function(comment) {
+		    		
+		    		var node, tmpObj = buildNodeObject(comment.currentFileInfo.filename, comment.index);
+		    		node = {
+		    			type: "comment"
+		    			
+		    			// TODO: Less has a bug where it wasn't setting the index for Comment nodes
+		    			//  after fix is released for Less, uncomment and update tests
+		    			//, source: tmpObj.source
+
+		    			// PostCSS requires comments to come without comment marks
+		    			, text: comment.value.replace(/^\/\*\s*/, '').replace(/\s*\*\/$/, '')
+		    		};
+		    		return postcss.comment(node);
+		    	}
+		    };
+	    	function processRules(container, rulesArray) {
+
+	    		if(rulesArray && rulesArray.length > 0) {
+		    		rulesArray.forEach(function(val) {
+		    			// a.k.a. PostCSS "rule"
+		    			if(val instanceof less.tree.Ruleset) {
+		    				var ruleset = process.ruleset(val);
+		    				if(ruleset.selector === '&' || ruleset.selector === '') {
+		    					container.append(ruleset.nodes);
+		    				}
+		    				else {
+		    					container.append(ruleset);
+		    				}
+		    				
+		    			}
+		    			// a.k.a. PostCSS "decl"
+		    			else if(val instanceof less.tree.Rule) {
+		    				container.append(process.rule(val));
+		    			}
+		    			else if(val instanceof less.tree.Comment) {
+		    				container.append(process.comment(val));
+		    			}
+		    			// a.k.a. PostCSS "atrule"
+		    			else if(val instanceof less.tree.Directive) {
+		    				container.append(process.directive(val));
+		    			}
+		    		});
+		    	}
+	    	}
+
+	        return new Promise(function (resolve, reject) {
+
+	        	if(typeof cacheInput !== 'string' || !cacheInput) {
+	        		// TODO: explain the error
+	        		reject();
+	        	}
+	            render(cacheInput.toString(), opts, function(err, tree, evaldRoot, imports) {
+					if(err) {
+						// Build PostCSS error
+						return reject(err);
+					}
+					try {
+						// Not sure if this is the correct context or not?
+						//context = tree.imports.context;
+						context = {};
+						// Convert Less AST to PostCSS AST
+						convertImports(imports.contents);
+
+						processRules(css, evaldRoot.rules);
+						//console.log(css);
+						resolve();
+					}
+					catch(err) {
+						return reject(err);
+					}
+				});
+	        });
+	    };
+	});
+	plugin.parser = function(input) {
+		cacheInput = input ? input : " ";
+	    return new postcss.root();
+	};
+
+	return plugin;
+}
+
+module.exports = LessPlugin();

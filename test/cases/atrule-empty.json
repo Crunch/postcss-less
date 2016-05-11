@@ -1,0 +1,30 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "atrule",
+      "name": "charset",
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "atrule-empty.css"
+        }
+      },
+      "params": "\"UTF-8\""
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "atrule-empty.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

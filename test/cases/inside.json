@@ -1,0 +1,62 @@
+{
+  "raws": {
+    "semicolon": false,
+    "after": ""
+  },
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {
+        "before": "",
+        "between": " ",
+        "semicolon": false,
+        "after": ""
+      },
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {
+            "before": " ",
+            "between": " ",
+            "afterName": " "
+          },
+          "type": "atrule",
+          "name": "import",
+          "source": {
+            "start": {
+              "line": 1,
+              "column": 5
+            },
+            "input": {
+              "file": "inside.css"
+            }
+          },
+          "params": "\"a.css\""
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "inside.css"
+        },
+        "end": {
+          "line": 1,
+          "column": 21
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "inside.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

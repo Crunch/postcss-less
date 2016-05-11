@@ -1,0 +1,16 @@
+/* a { color: black } */
+/**/
+/* */
+div {
+    /* inside */
+    border: 1px solid black;
+    /* between */
+    border-radius: 3px / 7px
+    /* end */
+}
+/* b */
+
+a {
+    color: black;
+    /* c */
+}

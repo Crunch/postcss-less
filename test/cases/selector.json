@@ -1,0 +1,45 @@
+{
+  "raws": {
+    "semicolon": false,
+    "after": ""
+  },
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {
+        "before": "",
+        "between": " ",
+        "selector": {
+          "value": "a b",
+          "raw": "a/* { } */ b"
+        },
+        "after": ""
+      },
+      "type": "rule",
+      "nodes": [],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "selector.css"
+        },
+        "end": {
+          "line": 1,
+          "column": 15
+        }
+      },
+      "selector": "a b"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "selector.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

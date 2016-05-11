@@ -1,0 +1,46 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 2,
+              "column": 3
+            },
+            "input": {
+              "file": "colon-selector.css"
+            }
+          },
+          "prop": "a",
+          "value": "b"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "colon-selector.css"
+        }
+      },
+      "selector": ":fullscreen"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "colon-selector.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "comment",
+      "text": "a { color: black }"
+    },
+    {
+      "raws": {},
+      "type": "comment",
+      "text": ""
+    },
+    {
+      "raws": {},
+      "type": "comment",
+      "text": ""
+    },
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "comment",
+          "text": "inside"
+        },
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 5
+            },
+            "input": {
+              "file": "comments.css"
+            }
+          },
+          "prop": "border",
+          "value": "1px solid black"
+        },
+        {
+          "raws": {},
+          "type": "comment",
+          "text": "between"
+        },
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 8,
+              "column": 5
+            },
+            "input": {
+              "file": "comments.css"
+            }
+          },
+          "prop": "border-radius",
+          "value": "3px / 7px /* end */"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 4,
+          "column": 1
+        },
+        "input": {
+          "file": "comments.css"
+        }
+      },
+      "selector": "div"
+    },
+    {
+      "raws": {},
+      "type": "comment",
+      "text": "b"
+    },
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 14,
+              "column": 5
+            },
+            "input": {
+              "file": "comments.css"
+            }
+          },
+          "prop": "color",
+          "value": "black"
+        },
+        {
+          "raws": {},
+          "type": "comment",
+          "text": "c"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 13,
+          "column": 1
+        },
+        "input": {
+          "file": "comments.css"
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "comments.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

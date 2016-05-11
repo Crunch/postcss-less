@@ -1,0 +1,31 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "atrule",
+      "name": "page",
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "atrule-no-params.css"
+        }
+      },
+      "params": "",
+      "nodes": []
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "atrule-no-params.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

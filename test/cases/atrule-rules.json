@@ -1,0 +1,111 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "atrule",
+      "name": "supports",
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "atrule-rules.css"
+        }
+      },
+      "params": "(animation-name: test)",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "atrule",
+          "name": "-custom-keyframe",
+          "source": {
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "input": {
+              "file": "atrule-rules.css"
+            }
+          },
+          "params": "anim",
+          "nodes": [
+            {
+              "raws": {},
+              "type": "rule",
+              "nodes": [
+                {
+                  "raws": {},
+                  "type": "decl",
+                  "source": {
+                    "start": {
+                      "line": 4,
+                      "column": 13
+                    },
+                    "input": {
+                      "file": "atrule-rules.css"
+                    }
+                  },
+                  "prop": "color",
+                  "value": "black"
+                }
+              ],
+              "source": {
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "input": {
+                  "file": "atrule-rules.css"
+                }
+              },
+              "selector": "from"
+            },
+            {
+              "raws": {},
+              "type": "rule",
+              "nodes": [
+                {
+                  "raws": {},
+                  "type": "decl",
+                  "source": {
+                    "start": {
+                      "line": 7,
+                      "column": 13
+                    },
+                    "input": {
+                      "file": "atrule-rules.css"
+                    }
+                  },
+                  "prop": "color",
+                  "value": "white"
+                }
+              ],
+              "source": {
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "input": {
+                  "file": "atrule-rules.css"
+                }
+              },
+              "selector": "to"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "atrule-rules.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

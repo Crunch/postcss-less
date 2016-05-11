@@ -1,0 +1,77 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 5
+            },
+            "input": {
+              "file": "extends.css"
+            }
+          },
+          "prop": "two",
+          "value": "2"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "input": {
+          "file": "extends.css"
+        }
+      },
+      "selector": "a"
+    },
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 6,
+              "column": 9
+            },
+            "input": {
+              "file": "extends.css"
+            }
+          },
+          "prop": "three",
+          "value": "3"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 5,
+          "column": 5
+        },
+        "input": {
+          "file": "extends.css"
+        }
+      },
+      "selector": "a b"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "extends.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

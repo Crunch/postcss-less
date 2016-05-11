@@ -1,0 +1,136 @@
+{
+  "raws": {
+    "semicolon": false,
+    "after": ""
+  },
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {
+        "before": "",
+        "between": " ",
+        "semicolon": false,
+        "after": "\n"
+      },
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {
+            "before": "\n    ",
+            "between": ": "
+          },
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "input": {
+              "file": "rule-at.css"
+            },
+            "end": {
+              "line": 2,
+              "column": 16
+            }
+          },
+          "prop": "width",
+          "value": "10px"
+        },
+        {
+          "raws": {
+            "before": "\n    ",
+            "between": ": "
+          },
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "input": {
+              "file": "rule-at.css"
+            },
+            "end": {
+              "line": 3,
+              "column": 21
+            }
+          },
+          "prop": "margin",
+          "value": "0 @width"
+        },
+        {
+          "raws": {
+            "before": "\n    ",
+            "between": " ",
+            "afterName": " ",
+            "semicolon": true,
+            "after": "\n    "
+          },
+          "type": "atrule",
+          "name": "mixin",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 5
+            },
+            "input": {
+              "file": "rule-at.css"
+            },
+            "end": {
+              "line": 6,
+              "column": 5
+            }
+          },
+          "params": "mobile",
+          "nodes": [
+            {
+              "raws": {
+                "before": "\n        ",
+                "between": ": "
+              },
+              "type": "decl",
+              "source": {
+                "start": {
+                  "line": 5,
+                  "column": 9
+                },
+                "input": {
+                  "file": "rule-at.css"
+                },
+                "end": {
+                  "line": 5,
+                  "column": 22
+                }
+              },
+              "prop": "height",
+              "value": "100px"
+            }
+          ]
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "rule-at.css"
+        },
+        "end": {
+          "line": 7,
+          "column": 1
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "rule-at.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

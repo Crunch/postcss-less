@@ -1,0 +1,46 @@
+{
+  "raws": {},
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {},
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {},
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 1,
+              "column": 4
+            },
+            "input": {
+              "file": "bom.css"
+            }
+          },
+          "prop": "a",
+          "value": "b"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "bom.css"
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "bom.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}

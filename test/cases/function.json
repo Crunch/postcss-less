@@ -1,0 +1,109 @@
+{
+  "raws": {
+    "semicolon": false,
+    "after": ""
+  },
+  "type": "root",
+  "nodes": [
+    {
+      "raws": {
+        "before": "",
+        "between": " ",
+        "semicolon": true,
+        "after": "\n"
+      },
+      "type": "rule",
+      "nodes": [
+        {
+          "raws": {
+            "before": "\n    ",
+            "between": ": "
+          },
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 2,
+              "column": 5
+            },
+            "input": {
+              "file": "function.css"
+            },
+            "end": {
+              "line": 2,
+              "column": 106
+            }
+          },
+          "prop": "background-image",
+          "value": "url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)"
+        },
+        {
+          "raws": {
+            "before": "\n    ",
+            "between": ": "
+          },
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 3,
+              "column": 5
+            },
+            "input": {
+              "file": "function.css"
+            },
+            "end": {
+              "line": 3,
+              "column": 45
+            }
+          },
+          "prop": "background-image",
+          "value": "url(\"./image (1).jpg\")"
+        },
+        {
+          "raws": {
+            "before": "\n    ",
+            "between": ": "
+          },
+          "type": "decl",
+          "source": {
+            "start": {
+              "line": 4,
+              "column": 5
+            },
+            "input": {
+              "file": "function.css"
+            },
+            "end": {
+              "line": 4,
+              "column": 47
+            }
+          },
+          "prop": "background-image",
+          "value": "url( './image (1).jpg' )"
+        }
+      ],
+      "source": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "input": {
+          "file": "function.css"
+        },
+        "end": {
+          "line": 5,
+          "column": 1
+        }
+      },
+      "selector": "a"
+    }
+  ],
+  "source": {
+    "input": {
+      "file": "function.css"
+    },
+    "start": {
+      "line": 1,
+      "column": 1
+    }
+  }
+}
