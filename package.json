@@ -1,6 +1,6 @@
 {
   "name": "postcss-less-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "PostCSS plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow",
   "keywords": [
     "postcss",
@@ -21,6 +21,7 @@
     "ava": "^0.4.2",
     "eslint": "^1.9.0",
     "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
     "less": "^2.7.1",
     "postcss": "^5.0.10"
   },
