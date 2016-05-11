@@ -9,7 +9,7 @@ var render = require("./lib/render")(less.ParseTree, less.transformTree);
 function LessPlugin() {
 	var cacheInput;
 
-	var plugin = postcss.plugin('postcss-less', function (opts) {
+	var plugin = postcss.plugin('postcss-less-parser', function (opts) {
 	    opts = opts || {};
 	    
 	    return function (css, result) {
@@ -283,11 +283,11 @@ function LessPlugin() {
 						// Build PostCSS error
 						reject(new CssSyntaxError(
 							err.message
-							, err.line
-							, err.column
+							, err.line || err.line === 0 ? err.line + 1 : undefined
+							, err.column || err.column === 0 ? err.column + 1 : undefined
 							, err.extract
 							, err.filename
-							, 'postcss-less-plugin'					
+							, 'postcss-less-parser'
 						));
 					}
 					try {

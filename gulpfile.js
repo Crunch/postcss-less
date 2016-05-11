@@ -8,13 +8,18 @@ gulp.task('test', function() {
 gulp.task('integration', function(done) {
     var postcss = require('postcss');
     var less = require('./');
+    var autoprefixer = require('autoprefixer');
+    var fs = require('fs');
+    var path = require('path');
+
+    var testFile = fs.readFileSync(path.join(__dirname, 'test/less/tests.less'), { });
 
     return postcss([
-		less({})
-	]).process('a { b: c; }', { parser: less.parser }).then(function (result) {
+		less(), autoprefixer()
+	]).process(testFile.toString(), { parser: less.parser, from: 'test/less/tests.less' }).then(function (result) {
 		console.log(result);
 	}, function(err) {
-		console.log(err);
+		console.log(err.message);
 	});
 
 });
