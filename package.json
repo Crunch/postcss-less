@@ -11,11 +11,11 @@
   ],
   "author": "Matthew Dean <matthewdean.me@gmail.com>",
   "license": "MIT",
-  "repository": "matthew-dean/postcss-less-parser",
+  "repository": "Crunch/postcss-less",
   "bugs": {
-    "url": "https://github.com/matthew-dean/postcss-less-parser/issues"
+    "url": "https://github.com/Crunch/postcss-less/issues"
   },
-  "homepage": "https://github.com/matthew-dean/postcss-less-parser",
+  "homepage": "https://github.com/Crunch/postcss-less",
   "dependencies": {},
   "devDependencies": {
     "ava": "^0.4.2",
