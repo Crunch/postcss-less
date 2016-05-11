@@ -1,5 +1,4 @@
 var chai = require('chai');
-var tests = require('postcss-parser-tests');
 var each = require('./each');
 var jsonify = require('./jsonify');
 var postcss = require('postcss');
