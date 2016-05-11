@@ -2,28 +2,27 @@
 
 [PostCSS] plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow.
 
-WIP - If anyone wants to help me get this working (especially tests, which haven't worked yet because of the async flow), that would be great. Pull requests welcome.
-
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://travis-ci.org/matthew-dean/postcss-less.svg
 [ci]:      https://travis-ci.org/matthew-dean/postcss-less
+[postcss-less-parser]: https://github.com/Crunch/postcss-less-parser
 
 
 ## Usage
 
-Follow these simple steps to use [postcss-less].
+Follow these simple steps to use [postcss-less-parser].
 
-Add [postcss-less] to your build tool:
+Add [postcss-less-parser] to your build tool:
 
 ```bash
-npm install postcss-less --save-dev
+npm install postcss-less-parser --save-dev
 ```
 
 #### Node
 
 ```js
-var less = require('postcss-less');
-less({ /* options */ }).process(YOUR_CSS, { parser: less });
+var less = require('postcss-less-parser');
+less({ /* Less.js options */ }).process(YOUR_CSS, { parser: less.parser });
 ```
 
 Load [postcss-less] as a PostCSS plugin:
@@ -31,8 +30,8 @@ Load [postcss-less] as a PostCSS plugin:
 ```js
 var less = require('postcss-less');
 postcss([
-    less({ /* options */ })
-]).process(YOUR_CSS, { parser: less }).then(function (result) {
+    less({ /* Less.js options */ })
+]).process(YOUR_CSS, { parser: less.parser }).then(function (result) {
 	// do something with result.css
 });
 ```
@@ -45,7 +44,7 @@ Add [Gulp PostCSS] to your build tool:
 npm install gulp-postcss --save-dev
 ```
 
-Enable [postcss-less] within your Gulpfile:
+Enable [postcss-less-parser] within your Gulpfile:
 
 ```js
 var postcss = require('gulp-postcss');
@@ -53,7 +52,7 @@ var postcss = require('gulp-postcss');
 gulp.task('less', function () {
     return gulp.src('./css/src/style.less').pipe(
         postcss([
-            require('postcss-less')({ /* options */ })
+            require('postcss-less-parser')({ /* Less.js options */ })
         ])
     ).pipe(
         gulp.dest('./css')
@@ -66,10 +65,10 @@ gulp.task('less', function () {
 Add [Grunt PostCSS] to your build tool:
 
 ```sh
-npm install postcss-less --save-dev
+npm install postcss-less-parser --save-dev
 ```
 
-Enable [postcss-less] within your Gruntfile:
+Enable [postcss-less-parser] within your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-postcss');
@@ -77,9 +76,9 @@ grunt.loadNpmTasks('grunt-postcss');
 grunt.initConfig({
 	postcss: {
 		options: {
-			parser: require('postcss-less'),
+			parser: require('postcss-less-parser'),
 			processors: [
-				require('postcss-less')({ /* options */ })
+				require('postcss-less-parser')({ /* Less.js options */ })
 			]
 		},
 		dist: {
