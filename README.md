@@ -27,6 +27,49 @@ I'm not sure if that would have a major performance difference or not. Someone e
 [ci]:      https://travis-ci.org/Crunch/postcss-less
 [postcss-less-parser]: https://github.com/Crunch/postcss-less-parser
 
+## Example
+
+### Input `example.less` file
+
+```less
+.add-bg-size(@size) {
+	-webkit-background-size+: @size;
+	background-size+: @size;
+}
+
+@default-size: 20px;
+
+.box {
+	.add-bg-size(@default-size (@default-size / 2));
+	.add-bg-size(cover);
+	width: calc(100% - 50px);
+}
+```
+
+### JavaScript
+```js
+var less = require('postcss-less-parser');
+var autoprefixer = require('autoprefixer');
+var clean = require('postcss-clean');
+
+var exampleLess = fs.readFileSync(path.join(__dirname, 'example.less'), 'utf8');
+
+postcss([
+    less({ strictMath: true }), 
+    autoprefixer(), 
+    clean()
+  ])
+  .process(exampleLess, { parser: less.parser, from: 'example.less' })
+  .then(function (result) {
+    console.log(result.css);
+  }, function(err) {});
+```
+
+### Output
+
+```css
+.box{background-size:20px 10px,cover;width:calc(100% - 50px)}
+```
 
 ## Usage
 
