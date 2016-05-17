@@ -11,9 +11,9 @@ Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "
 ## Having said that...
 
 * Because this uses the [Less.js] parser and not the default PostCSS processor, some parsing will be different. PostCSS accepts "broken" CSS, whereas Less doubles as a de facto CSS linter, and will return errors if your Less / CSS is poorly structured.
-* PostCSS will also sometimes "fix" CSS that uses property hacks, which Less preserves as the property name, or will remove comments from within values, which are also kept in the value by Less.
-* The `less()` plugin needs to be the first plugin called.
+* PostCSS will also sometimes "fix" CSS that uses property hacks, which Less preserves as the property name. As well, PostCSS will remove comments from within values, which are also kept in the value by Less (in most cases).
 * Less.js does not save "raws" when parsing. It also only preserves the start line / column of your source, which is still fine for Source Maps.
+* **Important:** The `less()` plugin **needs to be the first PostCSS plugin called**.
 
 ## How is this different from a Less plugin?
 A plugin like [less-plugin-autoprefix] parses your CSS twice. First, [Less.js] parses your `.less`, evaluates it, and outputs CSS as a string. Then, the [less-plugin-autoprefix] plugin calls PostCSS to parse that CSS output to make an AST.
