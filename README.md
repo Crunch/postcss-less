@@ -15,12 +15,10 @@ Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "
 * Less.js does not save "raws" when parsing. It also only preserves the start line / column of your source, which is still fine for Source Maps.
 * **Important:** The `less()` plugin **needs to be the first PostCSS plugin called**.
 
-## How is this different from a Less plugin?
-A plugin like [less-plugin-autoprefix] parses your CSS twice. First, [Less.js] parses your `.less`, evaluates it, and outputs CSS as a string. Then, the [less-plugin-autoprefix] plugin calls PostCSS to parse that CSS output to make an AST.
+## How is this different from a Less.js plugin?
+With a Less.js plugin, your LESS is parsed, evaluated, and exported as a string which is sent to the plugin. In the case of [less-plugin-autoprefix], the plugin calls PostCSS / Autoprefixer to parse that CSS output string. So, parsing happens twice, although in real-world scenarios that probably doesn't matter a whole lot.
 
-Instead of parsing twice, the [postcss-less-parser] plugin directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD. But I did it for you. Because I love you.
-
-I'm not sure if that would have a major performance difference or not. Someone else can do the benchmarks, my brain is full.
+The [postcss-less-parser] plugin instead directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD. But that work makes this plugin more of a "proper" PostCSS plugin.
 
 [less-plugin-autoprefix]: https://github.com/less/less-plugin-autoprefix
 [PostCSS]: https://github.com/postcss/postcss
