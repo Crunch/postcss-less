@@ -77,7 +77,7 @@ postcss([
 
 Follow these simple steps to use [postcss-less-parser].
 
-Add [postcss-less-parser] to your build tool:
+Add [postcss-less-parser] to your build tool. (You must have Less.js and PostCSS installed as prerequisites.)
 
 ```bash
 npm install postcss-less-parser --save-dev
