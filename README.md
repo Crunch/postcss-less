@@ -16,7 +16,7 @@ Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "
 * Less.js does not save "raws" when parsing. It also only preserves the start line / column of your source, which is still fine for Source Maps.
 
 ## How is this different from a Less plugin?
-A plugin like [less-plugin-autoprefix] parses your CSS twice. First, [Less.js] parses your `.less`, evaluates it, and outputs CSS as a string. Then, PostCSS parses the string to make an AST. The [postcss-less-parser] plugin directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD.
+A plugin like [less-plugin-autoprefix] parses your CSS twice. First, [Less.js] parses your `.less`, evaluates it, and outputs CSS as a string. Then, PostCSS parses the string to make an AST. The [postcss-less-engine] plugin directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD.
 
 I'm not sure if that would have a major performance difference or not. Someone else can do the benchmarks, my brain is full.
 
@@ -25,30 +25,30 @@ I'm not sure if that would have a major performance difference or not. Someone e
 [Less.js]: https://github.com/less/less.js
 [ci-img]:  https://travis-ci.org/Crunch/postcss-less.svg
 [ci]:      https://travis-ci.org/Crunch/postcss-less
-[postcss-less-parser]: https://github.com/Crunch/postcss-less-parser
+[postcss-less-engine]: https://github.com/Crunch/postcss-less
 
 
 ## Usage
 
-Follow these simple steps to use [postcss-less-parser].
+Follow these simple steps to use [postcss-less-engine].
 
-Add [postcss-less-parser] to your build tool:
+Add [postcss-less-engine] to your build tool:
 
 ```bash
-npm install postcss-less-parser --save-dev
+npm install postcss-less-engine --save-dev
 ```
 
 #### Node
 
 ```js
-var less = require('postcss-less-parser');
+var less = require('postcss-less-engine');
 less({ /* Less.js options */ }).process(YOUR_CSS, { parser: less.parser });
 ```
 
-Load [postcss-less-parser] as a PostCSS plugin:
+Load [postcss-less-engine] as a PostCSS plugin:
 
 ```js
-var less = require('postcss-less-parser');
+var less = require('postcss-less-engine');
 postcss([
     less({ /* Less.js options */ })
 ]).process(YOUR_CSS, { parser: less.parser }).then(function (result) {
@@ -64,7 +64,7 @@ Add [Gulp PostCSS] to your build tool:
 npm install gulp-postcss --save-dev
 ```
 
-Enable [postcss-less-parser] within your Gulpfile:
+Enable [postcss-less-engine] within your Gulpfile:
 
 ```js
 var postcss = require('gulp-postcss');
@@ -72,7 +72,7 @@ var postcss = require('gulp-postcss');
 gulp.task('less', function () {
     return gulp.src('./css/src/style.less').pipe(
         postcss([
-            require('postcss-less-parser')({ /* Less.js options */ })
+            require('postcss-less-engine')({ /* Less.js options */ })
         ])
     ).pipe(
         gulp.dest('./css')
@@ -85,10 +85,10 @@ gulp.task('less', function () {
 Add [Grunt PostCSS] to your build tool:
 
 ```sh
-npm install postcss-less-parser --save-dev
+npm install postcss-less-engine --save-dev
 ```
 
-Enable [postcss-less-parser] within your Gruntfile:
+Enable [postcss-less-engine] within your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-postcss');
@@ -96,9 +96,9 @@ grunt.loadNpmTasks('grunt-postcss');
 grunt.initConfig({
 	postcss: {
 		options: {
-			parser: require('postcss-less-parser'),
+			parser: require('postcss-less-engine'),
 			processors: [
-				require('postcss-less-parser')({ /* Less.js options */ })
+				require('postcss-less-engine')({ /* Less.js options */ })
 			]
 		},
 		dist: {

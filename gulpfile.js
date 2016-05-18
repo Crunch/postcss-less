@@ -1,13 +1,16 @@
 var gulp = require('gulp');
 var postcss = require('postcss');
 var less = require('./');
+
 var autoprefixer = require('autoprefixer');
+var clean = require('postcss-clean');
+
 var fs = require('fs');
 var path = require('path');
 
 gulp.task('test', function() {
     var mocha = require('gulp-mocha');
-    return gulp.src('test/*.js', { read: false }).pipe(mocha());
+    return gulp.src('test/parse.js', { read: false }).pipe(mocha());
 });
 
 function testLess(filename, plugins) {
@@ -22,6 +25,10 @@ function testLess(filename, plugins) {
 
 gulp.task('integration', function(done) {
 	testLess('tests', [less(), autoprefixer()]);
+});
+
+gulp.task('plugins', function(done) {
+	testLess('plugins', [less({ strictMath: true }), autoprefixer(), clean()]);
 });
 
 

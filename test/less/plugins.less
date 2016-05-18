@@ -1,0 +1,12 @@
+.add-bg-size(@size) {
+	-webkit-background-size+: @size;
+	background-size+: @size;
+}
+
+@default-size: 20px;
+
+.box {
+	.add-bg-size(@default-size (@default-size / 2));
+	.add-bg-size(cover);
+	width: calc(100% - 50px);
+}
