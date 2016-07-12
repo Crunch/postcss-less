@@ -38,12 +38,16 @@ each('css')( function(name, css, json) {
 
 
 describe('LESS Parser', function() {
-	describe('Process CSS', function() {
-		Promise.all(promises);
+
+	it('processes CSS', function(done) {
+		Promise.all(promises).then(function() {
+			done();
+		}, function(err) {
+			done(err);
+		});
 	});
-	describe('Process LESS', function() {
-		//Promise.all(promises);
-	});
+
+	
 });
 
 // Through testing, I discovered that Source Maps won't be equal

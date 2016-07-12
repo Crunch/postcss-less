@@ -9,7 +9,7 @@ var render = require("./lib/render")(less.ParseTree, less.transformTree);
 function LessPlugin() {
 	var cacheInput;
 
-	var plugin = postcss.plugin('postcss-less-parser', function (opts) {
+	var plugin = postcss.plugin('postcss-less-engine', function (opts) {
 	    opts = opts || {};
 	    
 	    return function (css, result) {
@@ -274,20 +274,23 @@ function LessPlugin() {
 
 	        return new Promise(function (resolve, reject) {
 
-	        	if(typeof cacheInput !== 'string' || !cacheInput) {
+	        	cacheInput = cacheInput.toString();
+	        	if(!cacheInput) {
 	        		// TODO: explain the error
-	        		reject();
+	        		reject(new CssSyntaxError(
+	        			"No input is present"
+	        		));
 	        	}
-	            render(cacheInput.toString(), opts, function(err, tree, evaldRoot, imports) {
+	            render(cacheInput, opts, function(err, tree, evaldRoot, imports) {
 					if(err) {
 						// Build PostCSS error
-						reject(new CssSyntaxError(
+						return reject(new CssSyntaxError(
 							err.message
 							, err.line || err.line === 0 ? err.line + 1 : undefined
 							, err.column || err.column === 0 ? err.column + 1 : undefined
 							, err.extract
 							, err.filename
-							, 'postcss-less-parser'
+							, 'postcss-less-engine'
 						));
 					}
 					try {
@@ -301,7 +304,15 @@ function LessPlugin() {
 						resolve();
 					}
 					catch(err) {
-						return reject(err);
+						return reject(new CssSyntaxError(
+							err.message
+							, err.line || err.line === 0 ? err.line + 1 : undefined
+							, err.column || err.column === 0 ? err.column + 1 : undefined
+							, err.extract
+							, err.filename
+							, 'postcss-less-engine'
+						));
+						//return reject(err);
 					}
 				});
 	        });

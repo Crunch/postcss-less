@@ -1,6 +1,6 @@
 {
   "name": "postcss-less-engine",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "PostCSS plugin for integrating the popular Less CSS pre-processor into your PostCSS workflow",
   "keywords": [
     "postcss",
@@ -24,9 +24,13 @@
     "eslint": "^1.9.0",
     "gulp": "^3.9.0",
     "gulp-mocha": "^2.2.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-util": "^3.0.7",
     "less": "^2.7.1",
+    "less-plugin-future-compat": "^1.0.0",
     "postcss": "^5.0.10",
-    "postcss-clean": "^1.0.2"
+    "postcss-clean": "^1.0.2",
+    "postcss-reporter": "^1.4.1"
   },
   "scripts": {
     "test": "gulp test"
