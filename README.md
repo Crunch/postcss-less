@@ -26,6 +26,8 @@ The [postcss-less-engine] plugin instead directly converts the evaluated Less AS
 [ci-img]:  https://travis-ci.org/Crunch/postcss-less.svg
 [ci]:      https://travis-ci.org/Crunch/postcss-less
 [postcss-less-engine]: https://github.com/Crunch/postcss-less
+[Gulp PostCSS]: https://github.com/postcss/gulp-postcss
+[Grunt PostCSS]: https://github.com/nDmitry/grunt-postcss
 
 ## Example
 
@@ -111,12 +113,13 @@ Enable [postcss-less-engine] within your Gulpfile:
 
 ```js
 var postcss = require('gulp-postcss');
+var less = require('postcss-less-engine');
 
 gulp.task('less', function () {
     return gulp.src('./css/src/style.less').pipe(
         postcss([
-            require('postcss-less-engine')({ /* Less.js options */ })
-        ])
+            less({ /* Less.js options */ })
+        ], { parser: less.parser })
     ).pipe(
         gulp.dest('./css')
     );
@@ -139,7 +142,7 @@ grunt.loadNpmTasks('grunt-postcss');
 grunt.initConfig({
 	postcss: {
 		options: {
-			parser: require('postcss-less-engine'),
+			parser: require('postcss-less-engine').parser,
 			processors: [
 				require('postcss-less-engine')({ /* Less.js options */ })
 			]
