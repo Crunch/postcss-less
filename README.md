@@ -50,7 +50,7 @@ The [postcss-less-engine] plugin instead directly converts the evaluated Less AS
 
 ### JavaScript
 ```js
-var less = require('postcss-less-parser');
+var less = require('postcss-less-engine');
 var autoprefixer = require('autoprefixer');
 var clean = require('postcss-clean');
 
