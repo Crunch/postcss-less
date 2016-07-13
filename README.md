@@ -16,7 +16,7 @@ Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "
 * **Important:** The `less()` plugin **needs to be the first PostCSS plugin called**.
 
 ## How is this different from a Less.js plugin?
-With a Less.js post-processor plugin, your LESS is parsed, evaluated, and exported as a string which is sent to the plugin. In the case of [less-plugin-autoprefix], the plugin calls PostCSS / Autoprefixer to parse that CSS output string. So, parsing happens twice, although in real-world scenarios that probably doesn't matter a whole lot. (In fact, re-parsing might be faster?)
+With a Less.js post-processor plugin, your LESS is parsed, evaluated, and exported as a string which is sent to the plugin. In the case of [less-plugin-autoprefix], the plugin calls PostCSS / Autoprefixer to parse that CSS output string. So, parsing happens twice, although in real-world scenarios that probably doesn't matter a whole lot.
 
 The [postcss-less-engine] plugin instead directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD. And this was more of a thought experiment for me to see what would be involved in making a "proper" PostCSS plugin. So, take note: I haven't benchmarked the difference in parsing and re-parsing with AST conversion. It may actually be faster to use Gulp and re-parse the output CSS from Less into PostCSS plugins.
 
