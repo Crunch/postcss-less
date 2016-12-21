@@ -1,28 +1,22 @@
-# Finally, Less comes to PostCSS
+# A Complete Compile-LESS-to-CSS PostCSS plugin
 
-[![Build Status][ci-img]][ci]
+_Note: this plugin was mostly a proof-of-concept of converting ASTs and not something I'm actively maintaining. The best way to do this is probably just to use a tool like Gulp and pipe through [gulp-less] and then [gulp-postcss]._
 
-**The PostCSS plugin you've been waiting for**: a [PostCSS] custom parser plugin for integrating the popular [Less.js] CSS pre-processor into your PostCSS workflow! It integrates the entire Less engine, evaluates your `.less`, and exports a PostCSS AST that you can use to attach multiple subsequent PostCSS plugins.
+This is a [PostCSS] custom parser plugin for integrating the popular [Less.js] CSS pre-processor into your PostCSS workflow! It integrates the entire Less engine, evaluates your `.less`, and exports a PostCSS AST that you can use to attach multiple subsequent PostCSS plugins.
 
-Instead of trying to assemble a hodge-podge collection of PostCSS plugins that "emulate" a pre-processor, use a pre-processor!
 
-**THAT'S RIGHT.** This plugin doesn't give you "Less-like" functionality, or "Less-like" parsing. It gives you the full awesomeness of Less, with the flexibility of PostCSS. Basically, you can throw your "pre-processor-y" and "Sass-ish" plugins away now.
-
-## Having said that...
+## Note
 
 * Because this uses the [Less.js] parser and not the default PostCSS processor, some parsing will be different. PostCSS accepts "broken" CSS, whereas Less doubles as a de facto CSS linter, and will return errors if your Less / CSS is poorly structured.
 * PostCSS will also sometimes "fix" CSS that uses property hacks, which Less preserves as the property name. As well, PostCSS will remove comments from within values, which are also kept in the value by Less (in most cases).
 * Less.js does not save "raws" when parsing. It also only preserves the start line / column of your source, which is still fine for Source Maps.
 * **Important:** The `less()` plugin **needs to be the first PostCSS plugin called**.
 
-## How is this different from a Less.js plugin?
-With a Less.js post-processor plugin, your LESS is parsed, evaluated, and exported as a string which is sent to the plugin. In the case of [less-plugin-autoprefix], the plugin calls PostCSS / Autoprefixer to parse that CSS output string. So, parsing happens twice, although in real-world scenarios that probably doesn't matter a whole lot.
-
-The [postcss-less-engine] plugin instead directly converts the evaluated Less AST to a PostCSS AST without re-parsing. WHICH WAS REALLY HARD. And this was more of a thought experiment for me to see what would be involved in making a "proper" PostCSS plugin. So, take note: I haven't benchmarked the difference in parsing and re-parsing with AST conversion. It may actually be faster to use Gulp and re-parse the output CSS from Less into PostCSS plugins.
-
 [less-plugin-autoprefix]: https://github.com/less/less-plugin-autoprefix
 [PostCSS]: https://github.com/postcss/postcss
 [Less.js]: https://github.com/less/less.js
+[gulp-less]: https://github.com/plus3network/gulp-less
+[gulp-postcss]: https://github.com/postcss/gulp-postcss
 [ci-img]:  https://travis-ci.org/Crunch/postcss-less.svg
 [ci]:      https://travis-ci.org/Crunch/postcss-less
 [postcss-less-engine]: https://github.com/Crunch/postcss-less
