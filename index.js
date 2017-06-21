@@ -7,7 +7,7 @@ var postcss = require('postcss')
 var render = require("./lib/render")(less.ParseTree, less.transformTree);
 
 function isFunction(f){
-  return typeof f === 'function';
+	return typeof f === 'function';
 }
 
 function LessPlugin() {
@@ -276,19 +276,19 @@ function LessPlugin() {
 		    	}
 	    	}
 
-	        return new Promise(function (resolve, reject) {
-            var onImport = opts.onImport;
-            
-            delete opts.onImport
-            
-	        	cacheInput = cacheInput.toString();
-	        	if(!cacheInput) {
-	        		// TODO: explain the error
-	        		reject(new CssSyntaxError(
-	        			"No input is present"
-	        		));
-	        	}
-	            render(cacheInput, opts, function(err, tree, evaldRoot, imports) {
+			return new Promise(function (resolve, reject) {
+				var onImport = opts.onImport;
+				
+				delete opts.onImport
+				
+				cacheInput = cacheInput.toString();
+				if(!cacheInput) {
+					// TODO: explain the error
+					reject(new CssSyntaxError(
+						"No input is present"
+					));
+				}
+				render(cacheInput, opts, function(err, tree, evaldRoot, imports) {
 					if(err) {
 						// Build PostCSS error
 						return reject(new CssSyntaxError(
@@ -306,11 +306,11 @@ function LessPlugin() {
 						context = {};
 						// Convert Less AST to PostCSS AST
 						convertImports(imports.contents);
-            
-            if(isFunction(onImport)){
-              onImport(Object.keys(postCssInputs))
-            }
-            
+						
+						if(isFunction(onImport)){
+							onImport(Object.keys(postCssInputs))
+						}
+						
 						processRules(css, evaldRoot.rules);
 						resolve();
 					}

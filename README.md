@@ -155,10 +155,10 @@ assigning a function to the `onImport` key among the options:
 
 ```javascript
 less({
-  /* other Less.js options */
-  onImport: function(sources){
-    console.log(sources)
-  }
+	/* other Less.js options */
+	onImport: function(sources){
+		console.log(sources)
+	}
 })
 ```
 
