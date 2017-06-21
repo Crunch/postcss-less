@@ -6,6 +6,10 @@ var postcss = require('postcss')
 
 var render = require("./lib/render")(less.ParseTree, less.transformTree);
 
+function isFunction(f){
+  return typeof f === 'function';
+}
+
 function LessPlugin() {
 	var cacheInput;
 
@@ -273,7 +277,10 @@ function LessPlugin() {
 	    	}
 
 	        return new Promise(function (resolve, reject) {
-
+            var onImport = opts.onImport;
+            
+            delete opts.onImport
+            
 	        	cacheInput = cacheInput.toString();
 	        	if(!cacheInput) {
 	        		// TODO: explain the error
@@ -299,7 +306,11 @@ function LessPlugin() {
 						context = {};
 						// Convert Less AST to PostCSS AST
 						convertImports(imports.contents);
-
+            
+            if(isFunction(onImport)){
+              onImport(Object.keys(postCssInputs))
+            }
+            
 						processRules(css, evaldRoot.rules);
 						resolve();
 					}
