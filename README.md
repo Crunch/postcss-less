@@ -147,3 +147,20 @@ grunt.initConfig({
 	}
 });
 ```
+
+#### Misc
+
+Similarly to `postcss-import`, the list of imported files can be viewed by
+assigning a function to the `onImport` key among the options:
+
+```javascript
+less({
+	/* other Less.js options */
+	onImport: function(sources){
+		console.log(sources)
+	}
+})
+```
+
+The received sources will be an array of strings, containing the absolute path
+to the files, which were imported, including the source file.
