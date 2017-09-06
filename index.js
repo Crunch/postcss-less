@@ -277,10 +277,6 @@ function LessPlugin() {
 	    	}
 
 			return new Promise(function (resolve, reject) {
-				var onImport = opts.onImport;
-				
-				delete opts.onImport
-				
 				cacheInput = cacheInput.toString();
 				if(!cacheInput) {
 					// TODO: explain the error
@@ -307,8 +303,8 @@ function LessPlugin() {
 						// Convert Less AST to PostCSS AST
 						convertImports(imports.contents);
 						
-						if(isFunction(onImport)){
-							onImport(Object.keys(postCssInputs))
+						if(isFunction(opts.onImport)){
+							opts.onImport(Object.keys(postCssInputs))
 						}
 						
 						processRules(css, evaldRoot.rules);
