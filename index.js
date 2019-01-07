@@ -6,10 +6,6 @@ var postcss = require('postcss')
 
 var render = require("./lib/render")(less.ParseTree, less.transformTree);
 
-function isFunction(f){
-	return typeof f === 'function';
-}
-
 function LessPlugin() {
 	var cacheInput;
 
@@ -96,8 +92,8 @@ function LessPlugin() {
 		    	directive: function(directive) {
 
 		    		var filename = directive.path 
-		    			? directive.path.currentFileInfo.filename
-		    			: directive.currentFileInfo.filename;
+		    			? directive.path._fileInfo.filename
+		    			: directive._fileInfo.filename;
 		    		var val, node, nodeTmp = buildNodeObject(filename, directive.index);
 
 		    		if(!directive.path) {
@@ -152,7 +148,7 @@ function LessPlugin() {
 				            if (!(pathSubCnt = path.length)) { continue; }
 
 				            if(i === 0) {
-		    					tmpObj = buildNodeObject(ruleset.selectors[0].elements[0].currentFileInfo.filename, ruleset.selectors[0].elements[0].index);
+		    					tmpObj = buildNodeObject(ruleset.selectors[0].elements[0]._fileInfo.filename, ruleset.selectors[0].elements[0].index);
 		    					node = {
 		    						type: "rule"
 		    						, nodes: []
@@ -177,7 +173,7 @@ function LessPlugin() {
 				    	for (i = 0; i < ruleset.selectors.length; i++) {
 				    		selector = ruleset.selectors[i];
 		    				if(i === 0) {
-		    					tmpObj = buildNodeObject(selector.elements[0].currentFileInfo.filename, selector.elements[0].index);
+		    					tmpObj = buildNodeObject(selector.elements[0]._fileInfo.filename, selector.elements[0].index);
 		    					node = {
 		    						type: "rule"
 		    						, nodes: []
@@ -201,7 +197,7 @@ function LessPlugin() {
 		    	}
 		    	// PostCSS "decl"
 		    	, rule: function(rule) {
-		    		var node, tmpObj = buildNodeObject(rule.currentFileInfo.filename, rule.index);
+		    		var node, tmpObj = buildNodeObject(rule._fileInfo.filename, rule.index);
 		    		var evalValue = getObject(rule.value, true);
 
 		    		node = {
@@ -229,7 +225,7 @@ function LessPlugin() {
 		    	}
 		    	, comment: function(comment) {
 		    		
-		    		var node, tmpObj = buildNodeObject(comment.currentFileInfo.filename, comment.index);
+		    		var node, tmpObj = buildNodeObject(comment._fileInfo.filename, comment.index);
 		    		node = {
 		    			type: "comment"
 		    			
@@ -259,14 +255,14 @@ function LessPlugin() {
 		    				
 		    			}
 		    			// a.k.a. PostCSS "decl"
-		    			else if(val instanceof less.tree.Rule) {
+		    			else if(val instanceof less.tree.Declaration) {
 		    				container.append(process.rule(val));
 		    			}
 		    			else if(val instanceof less.tree.Comment) {
 		    				container.append(process.comment(val));
 		    			}
 		    			// a.k.a. PostCSS "atrule"
-		    			else if(val instanceof less.tree.Directive) {
+		    			else if(val instanceof less.tree.AtRule) {
 		    				container.append(process.directive(val));
 		    			}
 		    			else if(val instanceof less.tree.Import) {
@@ -276,15 +272,16 @@ function LessPlugin() {
 		    	}
 	    	}
 
-			return new Promise(function (resolve, reject) {
-				cacheInput = cacheInput.toString();
-				if(!cacheInput) {
-					// TODO: explain the error
-					reject(new CssSyntaxError(
-						"No input is present"
-					));
-				}
-				render(cacheInput, opts, function(err, tree, evaldRoot, imports) {
+	        return new Promise(function (resolve, reject) {
+
+	        	cacheInput = cacheInput.toString();
+	        	if(!cacheInput) {
+	        		// TODO: explain the error
+	        		reject(new CssSyntaxError(
+	        			"No input is present"
+	        		));
+	        	}
+	            render(cacheInput, opts, function(err, tree, evaldRoot, imports) {
 					if(err) {
 						// Build PostCSS error
 						return reject(new CssSyntaxError(
@@ -302,11 +299,11 @@ function LessPlugin() {
 						context = {};
 						// Convert Less AST to PostCSS AST
 						convertImports(imports.contents);
-						
+
 						if(isFunction(opts.onImport)){
 							opts.onImport(Object.keys(postCssInputs))
 						}
-						
+
 						processRules(css, evaldRoot.rules);
 						resolve();
 					}
