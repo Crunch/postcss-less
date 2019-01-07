@@ -300,10 +300,6 @@ function LessPlugin() {
 						// Convert Less AST to PostCSS AST
 						convertImports(imports.contents);
 
-						if(isFunction(opts.onImport)){
-							opts.onImport(Object.keys(postCssInputs))
-						}
-
 						processRules(css, evaldRoot.rules);
 						resolve();
 					}
