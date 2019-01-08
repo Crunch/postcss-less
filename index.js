@@ -6,6 +6,11 @@ var postcss = require('postcss')
 
 var render = require("./lib/render")(less.ParseTree, less.transformTree);
 
+var fround = function(value, numPrecision) {
+	value = Number(value);
+    return (numPrecision) ? Number((value + 2e-16).toFixed(numPrecision)) : value;
+}
+
 function LessPlugin() {
 	var cacheInput;
 
@@ -269,7 +274,11 @@ function LessPlugin() {
 		    				container.append(process.directive(val));
 		    			}
 		    		});
-		    	}
+				}
+				// numPrecision = 8
+				container.walkDecls(decl => {
+					decl.value = String(fround(decl.value, 8));
+				});
 	    	}
 
 	        return new Promise(function (resolve, reject) {
