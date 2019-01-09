@@ -191,7 +191,11 @@ function LessPlugin() {
 
 	    			node.selectors = selectors;
 
-	    			var rule = postcss.rule(node);
+					var rule = postcss.rule(node);
+					
+					// add semicolon
+					rule.raws.semicolon = true;
+
 	    			processRules(rule, ruleset.rules);
 	    			return rule;
 		    	}
@@ -219,7 +223,7 @@ function LessPlugin() {
 		    				node.important = true;
 		    				node.value = testImportant[1].trim();
 		    			}
-		    		}
+					}
 
 		    		return postcss.decl(node);
 		    	}
