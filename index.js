@@ -6,6 +6,10 @@ var postcss = require('postcss')
 
 var render = require("./lib/render")(less.ParseTree, less.transformTree);
 
+function isFunction(f){
+	return typeof f === 'function';
+}
+
 function LessPlugin() {
 	var cacheInput;
 
@@ -303,6 +307,10 @@ function LessPlugin() {
 						context = {};
 						// Convert Less AST to PostCSS AST
 						convertImports(imports.contents);
+
+						if(isFunction(opts.onImport)){
+							opts.onImport(Object.keys(postCssInputs))
+						}
 
 						processRules(css, evaldRoot.rules);
 						resolve();
